@@ -69,6 +69,13 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate,NSFetc
                         componenteMensagem.messageComposeDelegate = self.mensagem
                         self.present(componenteMensagem, animated: true, completion: nil)
                     }
+                    break
+                case .ligacao:
+                    guard let numeroDoAluno = alunoSelecionado.telefone else { return }
+                    if let url = URL(string: "tel://\(numeroDoAluno)"), UIApplication.shared.canOpenURL(url) {
+                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    }
+                    break
                 }
             })
             self.present(menu, animated: true, completion: nil)
