@@ -80,8 +80,14 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate,NSFetc
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            guard let alunoSelcionado = gerenciadorDeResultados?.fetchedObjects![indexPath.row] else { return }
+            contexto.delete(alunoSelcionado)
+            
+            do {
+                try contexto.save()
+            } catch {
+                print(error.localizedDescription)
+            }
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
@@ -96,7 +102,8 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate,NSFetc
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch type {
         case .delete:
-            // Iplementará depois
+            guard let indexPath = indexPath else { return }
+            tableView.deleteRows(at: [indexPath], with: .fade)
             break
         default:
             tableView.reloadData()
