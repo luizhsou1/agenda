@@ -40,6 +40,7 @@
                                 <connections>
                                     <outlet property="imageAluno" destination="I1a-iL-YQH" id="dM3-yt-b69"/>
                                     <outlet property="labelNomeDoAluno" destination="oKL-i4-VS5" id="GFr-bb-rep"/>
+                                    <segue destination="ZY7-NM-Hup" kind="show" identifier="editar" id="FL1-M9-wsL"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -228,6 +229,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="nVT-S7-kWk"/>
                     </view>
+                    <navigationItem key="navigationItem" id="ln7-sD-6ln"/>
                     <connections>
                         <outlet property="buttonFoto" destination="X6G-KS-zIE" id="TSZ-IB-8Ah"/>
                         <outlet property="imageAluno" destination="EeF-Ef-j6E" id="0lP-oI-Din"/>
@@ -261,4 +263,7 @@
             <point key="canvasLocation" x="-519" y="116"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="FL1-M9-wsL"/>
+    </inferredMetricsTieBreakers>
 </document>
