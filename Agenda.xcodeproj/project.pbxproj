@@ -19,6 +19,7 @@
 		255666D524A25554008FE318 /* MenuOpcoesAluno.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255666D424A25554008FE318 /* MenuOpcoesAluno.swift */; };
 		255666D724A2584B008FE318 /* Mensagem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255666D624A2584B008FE318 /* Mensagem.swift */; };
 		255666D924A26FA2008FE318 /* Localizacao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255666D824A26FA2008FE318 /* Localizacao.swift */; };
+		255666DD24A27497008FE318 /* MapaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255666DC24A27497008FE318 /* MapaViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		255666D424A25554008FE318 /* MenuOpcoesAluno.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuOpcoesAluno.swift; sourceTree = "<group>"; };
 		255666D624A2584B008FE318 /* Mensagem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mensagem.swift; sourceTree = "<group>"; };
 		255666D824A26FA2008FE318 /* Localizacao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localizacao.swift; sourceTree = "<group>"; };
+		255666DC24A27497008FE318 /* MapaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapaViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				03AA174D1FC84154003CB2B8 /* AppDelegate.swift */,
 				03AA17621FC8433E003CB2B8 /* Home */,
 				03AA17691FC84A2D003CB2B8 /* Alunos */,
+				255666DA24A27452008FE318 /* Mapa */,
 				250B4BF224A18D0C0060ECAA /* Components */,
 				03AA17511FC84154003CB2B8 /* Main.storyboard */,
 				03AA17571FC84154003CB2B8 /* Assets.xcassets */,
@@ -139,6 +142,22 @@
 				255666D824A26FA2008FE318 /* Localizacao.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		255666DA24A27452008FE318 /* Mapa */ = {
+			isa = PBXGroup;
+			children = (
+				255666DB24A27467008FE318 /* Controller */,
+			);
+			path = Mapa;
+			sourceTree = "<group>";
+		};
+		255666DB24A27467008FE318 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				255666DC24A27497008FE318 /* MapaViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -220,6 +239,7 @@
 				250B4BF424A18D2F0060ECAA /* ImagePicker.swift in Sources */,
 				03AA17681FC843B1003CB2B8 /* HomeTableViewCell.swift in Sources */,
 				255666D724A2584B008FE318 /* Mensagem.swift in Sources */,
+				255666DD24A27497008FE318 /* MapaViewController.swift in Sources */,
 				03AA174E1FC84154003CB2B8 /* AppDelegate.swift in Sources */,
 				255666D924A26FA2008FE318 /* Localizacao.swift in Sources */,
 			);

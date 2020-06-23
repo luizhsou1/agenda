@@ -85,10 +85,12 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate,NSFetc
                             let url: String = "waze://?ll=\(latitude),\(longitude)&navigate=yes"
                             UIApplication.shared.open(URL(string: url)!, options: [:], completionHandler: nil)
                         })
-                        
-                        
-                        
                     }
+                    break
+                case .mapa:
+                    let mapa = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mapa") as! MapaViewController
+                    mapa.aluno = alunoSelecionado
+                    self.navigationController?.pushViewController(mapa, animated: true)
                     break
                 }
             })
