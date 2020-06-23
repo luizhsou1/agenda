@@ -58,6 +58,18 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate,NSFetc
         }
     }
     
+    @objc func abrirActionSheet(_ longPress: UILongPressGestureRecognizer) {
+        if longPress.state == .began {
+            let menu = MenuOpcoesAluno().configuraMenuDeOpcoesDoAluno(completion: {(opcao) in
+                switch opcao {
+                    case .sms:
+                        print("SMS")
+                }
+            })
+            self.present(menu, animated: true, completion: nil)
+        }        
+    }
+    
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -67,9 +79,12 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate,NSFetc
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "celula-aluno", for: indexPath) as! HomeTableViewCell
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(self.abrirActionSheet(_:)))
+        
         guard let aluno = gerenciadorDeResultados?.fetchedObjects![indexPath.row] else { return cell }
         
         cell.configuraCelula(aluno)
+        cell.addGestureRecognizer(longPress)
         
         return cell
     }
