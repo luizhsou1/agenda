@@ -18,6 +18,7 @@ class MapaViewController: UIViewController {
     // MARK: - Variavel
     
     var aluno:Aluno?
+    lazy var localizacao = Localizacao() // "lazy" serve para instanciar o objeto apenas na hora que for utilizado
     
     // MARK: - View Lifecycle
 
@@ -26,6 +27,7 @@ class MapaViewController: UIViewController {
         self.navigationItem.title = getTitulo()
         localizacaoInicial()
         localizarAluno()
+        mapa.delegate = localizacao
     }
     
     // MARK: - Métodos
@@ -36,7 +38,7 @@ class MapaViewController: UIViewController {
     
     func localizacaoInicial() {
         Localizacao().converteEnderecoEmCoordenadas(endereco: "Caelum - São Paulo") { (localizacaoEncontrada) in
-            let pino = self.configuraPino(titulo: "Caelum", localizacao: localizacaoEncontrada)
+            let pino = Localizacao().configuraPino(titulo: "Caelum", localizacao: localizacaoEncontrada, cor: .black, icone: UIImage(named: "icon_caelum"))
             let regiao = MKCoordinateRegionMakeWithDistance(pino.coordinate, 5000, 5000)
             self.mapa.setRegion(regiao, animated: true)
             self.mapa.addAnnotation(pino)
@@ -46,21 +48,9 @@ class MapaViewController: UIViewController {
     func localizarAluno() {
         if let aluno = aluno {
             Localizacao().converteEnderecoEmCoordenadas(endereco: aluno.endereco!, local: { (localizacaoEncontrada) in
-                let pino = self.configuraPino(titulo: aluno.nome!, localizacao: localizacaoEncontrada)
+                let pino = Localizacao().configuraPino(titulo: aluno.nome!, localizacao: localizacaoEncontrada, cor: nil, icone: nil)
                 self.mapa.addAnnotation(pino)
             })
         }
     }
-    
-    func configuraPino(titulo:String, localizacao:CLPlacemark) -> MKPointAnnotation {
-        let pino = MKPointAnnotation()
-        pino.title = titulo
-        pino.coordinate = localizacao.location!.coordinate
-        
-        return pino
-    }
-    
-    
-
-
 }
