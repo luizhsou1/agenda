@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import SafariServices
 
 class HomeTableViewController: UITableViewController, UISearchBarDelegate, NSFetchedResultsControllerDelegate {
     
@@ -44,7 +45,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, NSFet
         self.navigationItem.searchController = searchController
     }
     
-    func recuperaAluno(filtro: String = "") {
+    func recuperaAluno(filtro:String = "") {
         let pesquisaAluno:NSFetchRequest<Aluno> = Aluno.fetchRequest()
         let ordenaPorNome = NSSortDescriptor(key: "nome", ascending: true)
         pesquisaAluno.sortDescriptors = [ordenaPorNome]
@@ -52,7 +53,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, NSFet
         if verificaFiltro(filtro) {
             pesquisaAluno.predicate = filtraAluno(filtro)
         }
-            
+        
         gerenciadorDeResultados = NSFetchedResultsController(fetchRequest: pesquisaAluno, managedObjectContext: contexto, sectionNameKeyPath: nil, cacheName: nil)
         gerenciadorDeResultados?.delegate = self
         
@@ -63,11 +64,11 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, NSFet
         }
     }
     
-    func filtraAluno(_ filtro: String) -> NSPredicate {
+    func filtraAluno(_ filtro:String) -> NSPredicate {
         return NSPredicate(format: "nome CONTAINS %@", filtro)
     }
     
-    func verificaFiltro(_ filtro: String) -> Bool {
+    func verificaFiltro(_ filtro:String) -> Bool {
         if filtro.isEmpty {
             return false
         }
@@ -108,6 +109,22 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, NSFet
                     
                     self.navigationController?.pushViewController(mapa, animated: true)
                     break
+                case .abrirPaginaWeb:
+                    
+                    if let urlDoAluno = alunoSelecionado.site {
+                        
+                        var urlFormatada = urlDoAluno
+                        
+                        if !urlFormatada.hasPrefix("http://") {
+                            urlFormatada = String(format: "http://%@", urlFormatada)
+                        }
+                        
+                        guard let url = URL(string: urlFormatada) else { return }
+                        let safariViewController = SFSafariViewController(url: url)
+                        self.present(safariViewController, animated: true, completion: nil)
+                    }
+                    
+                    break
                 }
             })
             self.present(menu, animated: true, completion: nil)
@@ -123,6 +140,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, NSFet
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let celula = tableView.dequeueReusableCell(withIdentifier: "celula-aluno", for: indexPath) as! HomeTableViewCell
+        celula.tag = indexPath.row
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(abrirActionSheet(_:)))
         guard let aluno = gerenciadorDeResultados?.fetchedObjects![indexPath.row] else { return celula }
         celula.configuraCelula(aluno)
@@ -139,7 +157,6 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, NSFet
         if editingStyle == .delete {
             AutenticacaoLocal().autorizaUsuario(completion: { (autenticado) in
                 if autenticado {
-                    // Despacha esse pedaço de código para a thread principal
                     DispatchQueue.main.async {
                         guard let alunoSelecionado = self.gerenciadorDeResultados?.fetchedObjects![indexPath.row] else { return }
                         self.contexto.delete(alunoSelecionado)
@@ -185,6 +202,11 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, NSFet
         }) { (error) in
             print(error.localizedDescription)
         }
+    }
+    
+    @IBAction func buttonLocalizacaoGeral(_ sender: UIBarButtonItem) {
+        let mapa = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mapa") as! MapaViewController
+        navigationController?.pushViewController(mapa, animated: true)
     }
     
     // MARK: - SearchBarDelegate

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CoreLocation
 import MapKit
 
 class Localizacao: NSObject, MKMapViewDelegate {
@@ -21,13 +20,21 @@ class Localizacao: NSObject, MKMapViewDelegate {
         }
     }
     
-    func configuraPino(titulo:String, localizacao:CLPlacemark, cor: UIColor?, icone: UIImage?) -> Pino {
+    func configuraPino(titulo:String, localizacao:CLPlacemark, cor:UIColor?, icone:UIImage?) -> Pino {
         let pino = Pino(coordenada: localizacao.location!.coordinate)
         pino.title = titulo
         pino.color = cor
         pino.icon = icone
         
         return pino
+    }
+    
+    func configuraBotaoLocalizacaoAtual(mapa:MKMapView) -> MKUserTrackingButton {
+        let botao = MKUserTrackingButton(mapView: mapa)
+        botao.frame.origin.x = 10
+        botao.frame.origin.y = 10
+        
+        return botao
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -38,7 +45,7 @@ class Localizacao: NSObject, MKMapViewDelegate {
             
             pinoView?.annotation = annotationView
             pinoView?.glyphImage = annotationView.icon
-            pinoView?.glyphTintColor = annotationView.color
+            pinoView?.markerTintColor = annotationView.color
             
             return pinoView
         }

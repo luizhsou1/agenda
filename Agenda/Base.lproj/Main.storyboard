@@ -73,7 +73,11 @@
                                     <action selector="buttonCalculaMedia:" destination="Qhi-kM-lyB" id="Clb-FF-lQn"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem systemItem="search" id="eTQ-eO-deP"/>
+                            <barButtonItem systemItem="search" id="eTQ-eO-deP">
+                                <connections>
+                                    <action selector="buttonLocalizacaoGeral:" destination="Qhi-kM-lyB" id="lLQ-9X-9kO"/>
+                                </connections>
+                            </barButtonItem>
                         </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="4cp-jd-Mnv">
                             <connections>
@@ -89,7 +93,7 @@
         <!--Aluno View Controller-->
         <scene sceneID="eVt-59-5bJ">
             <objects>
-                <viewController id="ZY7-NM-Hup" customClass="AlunoViewController" customModule="Agenda" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="cadastrar" id="ZY7-NM-Hup" customClass="AlunoViewController" customModule="Agenda" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="daU-O4-U0H">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

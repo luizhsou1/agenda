@@ -2,8 +2,8 @@
 //  Pino.swift
 //  Agenda
 //
-//  Created by Luiz on 24/06/20.
-//  Copyright © 2020 Alura. All rights reserved.
+//  Created by Alura Roxo on 10/01/18.
+//  Copyright © 2018 Alura. All rights reserved.
 //
 
 import UIKit
@@ -16,8 +16,9 @@ class Pino: NSObject, MKAnnotation {
     var color: UIColor?
     var coordinate: CLLocationCoordinate2D
     
-    init(coordenada: CLLocationCoordinate2D) {
+    init(coordenada:CLLocationCoordinate2D) {
         self.coordinate = coordenada
     }
+    
 
 }
