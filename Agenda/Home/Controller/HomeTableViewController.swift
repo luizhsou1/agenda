@@ -9,17 +9,17 @@
 import UIKit
 import CoreData
 
-class HomeTableViewController: UITableViewController, UISearchBarDelegate,NSFetchedResultsControllerDelegate {
+class HomeTableViewController: UITableViewController, UISearchBarDelegate, NSFetchedResultsControllerDelegate {
     
     //MARK: - Variáveis
     
-    var contexto: NSManagedObjectContext {
+    var contexto:NSManagedObjectContext {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         return appDelegate.persistentContainer.viewContext
     }
     let searchController = UISearchController(searchResultsController: nil)
-    var gerenciadorDeResultados: NSFetchedResultsController<Aluno>?
-    var alunoViewController: AlunoViewController?
+    var gerenciadorDeResultados:NSFetchedResultsController<Aluno>?
+    var alunoViewController:AlunoViewController?
     var mensagem = Mensagem()
     
     // MARK: - View Lifecycle
@@ -45,7 +45,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate,NSFetc
     }
     
     func recuperaAluno() {
-        let pesquisaAluno: NSFetchRequest<Aluno> = Aluno.fetchRequest()
+        let pesquisaAluno:NSFetchRequest<Aluno> = Aluno.fetchRequest()
         let ordenaPorNome = NSSortDescriptor(key: "nome", ascending: true)
         pesquisaAluno.sortDescriptors = [ordenaPorNome]
         
@@ -59,10 +59,10 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate,NSFetc
         }
     }
     
-    @objc func abrirActionSheet(_ longPress: UILongPressGestureRecognizer) {
+    @objc func abrirActionSheet(_ longPress:UILongPressGestureRecognizer) {
         if longPress.state == .began {
             guard let alunoSelecionado = gerenciadorDeResultados?.fetchedObjects?[(longPress.view?.tag)!] else { return }
-            let menu = MenuOpcoesAluno().configuraMenuDeOpcoesDoAluno(completion: {(opcao) in
+            let menu = MenuOpcoesAlunos().configuraMenuDeOpcoesDoAluno(completion: { (opcao) in
                 switch opcao {
                 case .sms:
                     if let componenteMensagem = self.mensagem.configuraSMS(alunoSelecionado) {
@@ -77,12 +77,12 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate,NSFetc
                     }
                     break
                 case .waze:
-                    if UIApplication.shared.canOpenURL((URL(string: "waze://")!)) {
-                        guard let enderecoAluno = alunoSelecionado.endereco else { return }
-                        Localizacao().converteEnderecoEmCoordenadas(endereco: enderecoAluno, local: {(localizacaoEncontrada) in
+                    if UIApplication.shared.canOpenURL(URL(string: "waze://")!) {
+                        guard let enderecoDoAluno = alunoSelecionado.endereco else { return }
+                        Localizacao().converteEnderecoEmCoordenadas(endereco: enderecoDoAluno, local: { (localizacaoEncontrada) in
                             let latitude = String(describing: localizacaoEncontrada.location!.coordinate.latitude)
                             let longitude = String(describing: localizacaoEncontrada.location!.coordinate.longitude)
-                            let url: String = "waze://?ll=\(latitude),\(longitude)&navigate=yes"
+                            let url:String = "waze://?ll=\(latitude),\(longitude)&navigate=yes"
                             UIApplication.shared.open(URL(string: url)!, options: [:], completionHandler: nil)
                         })
                     }
@@ -90,31 +90,30 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate,NSFetc
                 case .mapa:
                     let mapa = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mapa") as! MapaViewController
                     mapa.aluno = alunoSelecionado
+                    
                     self.navigationController?.pushViewController(mapa, animated: true)
                     break
                 }
             })
             self.present(menu, animated: true, completion: nil)
-        }        
+        }
     }
-    
+
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let quantidadeDeAlunos = gerenciadorDeResultados?.fetchedObjects?.count else { return 0 }
-        return quantidadeDeAlunos
+        guard let contadorListaDeAlunos = gerenciadorDeResultados?.fetchedObjects?.count else { return 0 }
+        return contadorListaDeAlunos
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "celula-aluno", for: indexPath) as! HomeTableViewCell
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(self.abrirActionSheet(_:)))
+        let celula = tableView.dequeueReusableCell(withIdentifier: "celula-aluno", for: indexPath) as! HomeTableViewCell
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(abrirActionSheet(_:)))
+        guard let aluno = gerenciadorDeResultados?.fetchedObjects![indexPath.row] else { return celula }
+        celula.configuraCelula(aluno)
+        celula.addGestureRecognizer(longPress)
         
-        guard let aluno = gerenciadorDeResultados?.fetchedObjects![indexPath.row] else { return cell }
-        
-        cell.configuraCelula(aluno)
-        cell.addGestureRecognizer(longPress)
-        
-        return cell
+        return celula
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -123,14 +122,21 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate,NSFetc
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            guard let alunoSelcionado = gerenciadorDeResultados?.fetchedObjects![indexPath.row] else { return }
-            contexto.delete(alunoSelcionado)
+            AutenticacaoLocal().autorizaUsuario(completion: { (autenticado) in
+                if autenticado {
+                    DispatchQueue.main.async {
+                        guard let alunoSelecionado = self.gerenciadorDeResultados?.fetchedObjects![indexPath.row] else { return }
+                        self.contexto.delete(alunoSelecionado)
+                        
+                        do {
+                            try self.contexto.save()
+                        } catch {
+                            print(error.localizedDescription)
+                        }
+                    }
+                }
+            })
             
-            do {
-                try contexto.save()
-            } catch {
-                print(error.localizedDescription)
-            }
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
@@ -141,7 +147,8 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate,NSFetc
         alunoViewController?.aluno = alunoSelecionado
     }
     
-    // MARK: - FetchedResultsControllerdelegate
+    // MARK: - FetchedResultsControllerDelegate
+    
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch type {
         case .delete:
@@ -153,17 +160,14 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate,NSFetc
         }
     }
     
-    
     @IBAction func buttonCalculaMedia(_ sender: UIBarButtonItem) {
         guard let listaDeAlunos = gerenciadorDeResultados?.fetchedObjects else { return }
-        CalculaMediaAPI().calculaMediaGeralDosAlunos(alunos: listaDeAlunos, sucesso: {(dicionario) in
-            print(dicionario)
+        CalculaMediaAPI().calculaMediaGeralDosAlunos(alunos: listaDeAlunos, sucesso: { (dicionario) in
             if let alerta = Notificacoes().exibeNotificacaoDeMediaDosAlunos(dicionarioDeMedia: dicionario) {
                 self.present(alerta, animated: true, completion: nil)
             }
-        }, falha: {(error) in
+        }) { (error) in
             print(error.localizedDescription)
-        })
+        }
     }
-    
 }

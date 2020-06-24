@@ -1,25 +1,24 @@
 //
-//  MenuOpcoesAluno.swift
+//  MenuOpcoesAlunos.swift
 //  Agenda
 //
-//  Created by Luiz on 23/06/20.
-//  Copyright © 2020 Alura. All rights reserved.
+//  Created by Alura on 07/12/17.
+//  Copyright © 2017 Alura. All rights reserved.
 //
 
 import UIKit
 
-enum OpcoesDoMenu {
+enum MenuActionSheetAluno {
     case sms
     case ligacao
     case waze
     case mapa
 }
 
-class MenuOpcoesAluno: NSObject {
+class MenuOpcoesAlunos: NSObject {
     
-    func configuraMenuDeOpcoesDoAluno(completion: @escaping(_ opcao: OpcoesDoMenu) -> Void) -> UIAlertController {
-        let menu = UIAlertController(title: "Atenção", message: "escolha uma das opções abaixo", preferredStyle: UIAlertControllerStyle.actionSheet)
-        
+    func configuraMenuDeOpcoesDoAluno(completion:@escaping(_ opcao:MenuActionSheetAluno) -> Void) -> UIAlertController {
+        let menu = UIAlertController(title: "Atencao", message: "escolha uma das opcoes abaixo", preferredStyle: .actionSheet)
         let sms = UIAlertAction(title: "enviar SMS", style: .default) { (acao) in
             completion(.sms)
         }
@@ -45,5 +44,5 @@ class MenuOpcoesAluno: NSObject {
         
         return menu
     }
-    
+
 }

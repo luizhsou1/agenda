@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19F101" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13533" systemVersion="16G1036" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Aluno" representedClassName="Aluno" syncable="YES" codeGenerationType="class">
-        <attribute name="endereco" optional="YES" attributeType="String"/>
-        <attribute name="foto" optional="YES" attributeType="Transformable"/>
-        <attribute name="nome" optional="YES" attributeType="String"/>
-        <attribute name="nota" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="site" optional="YES" attributeType="String"/>
-        <attribute name="telefone" optional="YES" attributeType="String"/>
+        <attribute name="endereco" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="foto" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="nome" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nota" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="site" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="telefone" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Aluno" positionX="-63" positionY="-18" width="128" height="133"/>
+        <element name="Aluno" positionX="-54" positionY="-9" width="128" height="135"/>
     </elements>
 </model>
