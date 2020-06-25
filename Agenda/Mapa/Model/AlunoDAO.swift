@@ -9,10 +9,28 @@
 import UIKit
 import CoreData
 
-class AlunoDAO: NSObject {
+class AlunoDAO: NSObject, NSFetchedResultsControllerDelegate {
+    var gerenciadorDeResultados:NSFetchedResultsController<Aluno>?
     var contexto:NSManagedObjectContext {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         return appDelegate.persistentContainer.viewContext
+    }
+    
+    func recuperaAlunos() -> Array<Aluno>{
+        let pesquisaAluno:NSFetchRequest<Aluno> = Aluno.fetchRequest()
+        let ordenaPorNome = NSSortDescriptor(key: "nome", ascending: true)
+        pesquisaAluno.sortDescriptors = [ordenaPorNome]
+        
+        gerenciadorDeResultados = NSFetchedResultsController(fetchRequest: pesquisaAluno, managedObjectContext: contexto, sectionNameKeyPath: nil, cacheName: nil)
+        
+        do {
+            try gerenciadorDeResultados?.performFetch()
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        guard let listaDeAlunos = gerenciadorDeResultados?.fetchedObjects else { return [] }
+        return listaDeAlunos
     }
     
     func salvaAlunoLocal(dicionarioDeAluno: Dictionary<String, Any>) {
