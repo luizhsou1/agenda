@@ -87,7 +87,7 @@ class AlunoViewController: UIViewController, ImagePickerFotoSelecionada {
             "telefone": telefone,
             "site": site,
             "nota": nota
-        ]	
+        ]
         
         return dicionario
     }
