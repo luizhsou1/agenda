@@ -16,7 +16,12 @@ class AlunoAPI: NSObject {
         Alamofire.request("http://localhost:8080/api/aluno", method: .get).responseJSON(completionHandler: {(response) in
             switch response.result {
             case .success:
-                print(response.result.value!)
+                if let resposta = response.result.value as? Dictionary<String, Any> {
+                    guard let listaDeAlunos = resposta["alunos"] as? Array<Dictionary<String, Any>> else { return }
+                    for dicionarioDeAluno in listaDeAlunos {
+                        AlunoDAO().salvaAlunoLocal(dicionarioDeAluno: dicionarioDeAluno)
+                    }
+                }
                 break
             case .failure:
                 print(response.error!)

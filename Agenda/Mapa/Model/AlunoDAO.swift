@@ -21,7 +21,16 @@ class AlunoDAO: NSObject {
         aluno.endereco = dicionarioDeAluno["endereco"] as? String
         aluno.telefone = dicionarioDeAluno["telefone"] as? String
         aluno.site = dicionarioDeAluno["site"] as? String
-        aluno.nota = (dicionarioDeAluno["nota"] as! NSString).doubleValue
+        
+        guard let nota = dicionarioDeAluno["nota"] else { return }
+        if (nota is String) {
+             aluno.nota = (dicionarioDeAluno["nota"] as! NSString).doubleValue
+        } else {
+            let conversaoDeNota = String(describing: nota)
+            aluno.nota = (conversaoDeNota as NSString).doubleValue
+        }
+        
+       
         atualizaContexto()
     }
     
