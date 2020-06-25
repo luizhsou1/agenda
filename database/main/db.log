@@ -7,3 +7,7 @@ create table dispositivo (token varchar(255) not null, primary key (token))
 create table firebase_config (id bigint not null, url varchar(255), apikey varchar(255), primary key (id))
 INSERT INTO ALUNO VALUES('0e638183-30fd-4b45-9df5-3c76660e0942',NULL,0,'Rua das Seringueiras',0,'2020-06-24 14:47:07.543000','Luiz Henrique de Souza',10.0E0,'www.alura.com.br','34984382735')
 COMMIT
+INSERT INTO ALUNO VALUES('09e4d0a0-1e60-4dab-9ec4-39d76146b65f',NULL,0,'Av. Paulista, S\u00e3o Paulo - SP',0,'2020-06-25 15:23:39.812000','Adriano',8.0E0,'www.uol.com.br','34984381111')
+COMMIT
+INSERT INTO ALUNO VALUES('19c1ae4a-7221-4a07-885a-58a0818a0131',NULL,0,'Rua Paschoal Bruno, 960 - Uberl\u00e2ndia',0,'2020-06-25 15:42:17.879000','Lola',10.0E0,'www.lolalinda.com.br','55555555')
+COMMIT
