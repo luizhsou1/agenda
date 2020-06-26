@@ -72,6 +72,11 @@ class AlunoDAO: NSObject, NSFetchedResultsControllerDelegate {
         atualizaContexto()
     }
     
+    func deletaAluno(aluno: Aluno) {
+        contexto.delete(aluno)
+        atualizaContexto()
+    }
+    
     func atualizaContexto() {
         do {
             try contexto.save()

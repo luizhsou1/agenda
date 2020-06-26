@@ -26,4 +26,10 @@ class Repositorio: NSObject {
         AlunoAPI().salvaAlunosNoServidor(parametros: [aluno])
         AlunoDAO().salvaAlunoLocal(dicionarioDeAluno: aluno)
     }
+    
+    func deletaAluno(aluno: Aluno) {
+        guard let id = aluno.id else { return }
+        AlunoAPI().deletaAluno(id: String(describing: id))
+        AlunoDAO().deletaAluno(aluno: aluno)
+    }
 }
