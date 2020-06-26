@@ -74,10 +74,13 @@ class AlunoViewController: UIViewController, ImagePickerFotoSelecionada {
     }
     
     func montaDicionarioDeParametros() -> Dictionary<String, String> {
+        
         var id = ""
+        
         if aluno?.id == nil {
             id = String(describing: UUID())
-        } else {
+        }
+        else {
             guard let idDoAlunoExistente = aluno?.id else { return [:] }
             id = String(describing: idDoAlunoExistente)
         }
@@ -88,13 +91,13 @@ class AlunoViewController: UIViewController, ImagePickerFotoSelecionada {
         guard let site = textFieldSite.text else { return [:] }
         guard let nota = textFieldNota.text else { return [:] }
         
-        let dicionario: Dictionary<String, String> = [
-            "id": id.lowercased(),
-            "nome": nome,
-            "endereco": endereco,
-            "telefone": telefone,
-            "site": site,
-            "nota": nota
+        let dicionario:Dictionary<String, String> = [
+            "id" : id.lowercased(),
+            "nome" : nome,
+            "endereco" : endereco,
+            "telefone" : telefone,
+            "site" : site,
+            "nota" : nota
         ]
         
         return dicionario
@@ -121,9 +124,17 @@ class AlunoViewController: UIViewController, ImagePickerFotoSelecionada {
     }
     
     @IBAction func buttonSalvar(_ sender: UIButton) {
-        let dicionarioDeAluno = montaDicionarioDeParametros()
-        Repositorio().salvaAluno(aluno: dicionarioDeAluno)
+        let json = montaDicionarioDeParametros()
+        Repositorio().salvaAluno(aluno: json)
         navigationController?.popViewController(animated: true)
     }
     
 }
+
+
+
+
+
+
+
+

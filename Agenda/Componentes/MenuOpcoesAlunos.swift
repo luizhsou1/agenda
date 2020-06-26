@@ -8,40 +8,37 @@
 
 import UIKit
 
-enum MenuActionSheetAluno {
-    case sms
-    case ligacao
-    case waze
-    case mapa
-    case abrirPaginaWeb
-}
-
 class MenuOpcoesAlunos: NSObject {
     
-    func configuraMenuDeOpcoesDoAluno(completion:@escaping(_ opcao:MenuActionSheetAluno) -> Void) -> UIAlertController {
+    func configuraMenuDeOpcoesDoAluno(navigation:UINavigationController, alunoSelecionado:Aluno) -> UIAlertController {
         let menu = UIAlertController(title: "Atencao", message: "escolha uma das opcoes abaixo", preferredStyle: .actionSheet)
+        
+        guard let viewController = navigation.viewControllers.last else { return menu }
+        
         let sms = UIAlertAction(title: "enviar SMS", style: .default) { (acao) in
-            completion(.sms)
+            Mensagem().enviaSMS(alunoSelecionado, controller: viewController)
         }
         menu.addAction(sms)
         
         let ligacao = UIAlertAction(title: "ligar", style: .default) { (acao) in
-            completion(.ligacao)
+            LigacaoTelefonica().fazLigacao(alunoSelecionado)
         }
         menu.addAction(ligacao)
         
         let waze = UIAlertAction(title: "localizar no waze", style: .default) { (acao) in
-            completion(.waze)
+            Localizacao().localizaAlunoNoWaze(alunoSelecionado)
         }
         menu.addAction(waze)
         
         let mapa = UIAlertAction(title: "localizar no mapa", style: .default) { (acao) in
-            completion(.mapa)
+            let mapa = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mapa") as! MapaViewController
+            mapa.aluno = alunoSelecionado
+            navigation.pushViewController(mapa, animated: true)
         }
         menu.addAction(mapa)
         
         let abrirPaginaWeb = UIAlertAction(title: "abrir página", style: .default) { (acao) in
-            completion(.abrirPaginaWeb)
+            Safari().abrePaginaWeb(alunoSelecionado, controller: viewController)
         }
         menu.addAction(abrirPaginaWeb)
         

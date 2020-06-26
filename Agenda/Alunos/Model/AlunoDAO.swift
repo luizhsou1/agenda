@@ -2,21 +2,22 @@
 //  AlunoDAO.swift
 //  Agenda
 //
-//  Created by Luiz on 25/06/20.
-//  Copyright © 2020 Alura. All rights reserved.
+//  Created by Alura Roxo on 28/02/18.
+//  Copyright © 2018 Alura. All rights reserved.
 //
 
 import UIKit
 import CoreData
 
-class AlunoDAO: NSObject, NSFetchedResultsControllerDelegate {
+class AlunoDAO: NSObject {
+    
     var gerenciadorDeResultados:NSFetchedResultsController<Aluno>?
     var contexto:NSManagedObjectContext {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         return appDelegate.persistentContainer.viewContext
     }
     
-    func recuperaAlunos() -> Array<Aluno>{
+    func recuperaAlunos() -> Array<Aluno> {
         let pesquisaAluno:NSFetchRequest<Aluno> = Aluno.fetchRequest()
         let ordenaPorNome = NSSortDescriptor(key: "nome", ascending: true)
         pesquisaAluno.sortDescriptors = [ordenaPorNome]
@@ -30,29 +31,25 @@ class AlunoDAO: NSObject, NSFetchedResultsControllerDelegate {
         }
         
         guard let listaDeAlunos = gerenciadorDeResultados?.fetchedObjects else { return [] }
+        
         return listaDeAlunos
     }
     
-    func salvaAlunoLocal(dicionarioDeAluno: Dictionary<String, Any>) {
+    func salvaAluno(dicionarioDeAluno:Dictionary<String, Any>) {
         
-        var aluno: NSManagedObject?
-            
+        var aluno:NSManagedObject?
         guard let id = UUID(uuidString: dicionarioDeAluno["id"] as! String) else { return }
         
         let alunos = recuperaAlunos().filter() { $0.id == id }
+        
         if alunos.count > 0 {
             guard let alunoEncontrado = alunos.first else { return }
             aluno = alunoEncontrado
-        } else {
+        }
+        else {
             let entidade = NSEntityDescription.entity(forEntityName: "Aluno", in: contexto)
             aluno = NSManagedObject(entity: entidade!, insertInto: contexto)
         }
-        
-//        aluno.id = id
-//        aluno.nome = dicionarioDeAluno["nome"] as? String
-//        aluno.endereco = dicionarioDeAluno["endereco"] as? String
-//        aluno.telefone = dicionarioDeAluno["telefone"] as? String
-//        aluno.site = dicionarioDeAluno["site"] as? String
         
         aluno?.setValue(id, forKey: "id")
         aluno?.setValue(dicionarioDeAluno["nome"] as? String, forKey: "nome")
@@ -61,18 +58,18 @@ class AlunoDAO: NSObject, NSFetchedResultsControllerDelegate {
         aluno?.setValue(dicionarioDeAluno["site"] as? String, forKey: "site")
         
         guard let nota = dicionarioDeAluno["nota"] else { return }
+        
         if (nota is String) {
             aluno?.setValue((dicionarioDeAluno["nota"] as! NSString).doubleValue, forKey: "nota")
-        } else {
+        }
+        else {
             let conversaoDeNota = String(describing: nota)
             aluno?.setValue((conversaoDeNota as NSString).doubleValue, forKey: "nota")
         }
-        
-       
         atualizaContexto()
     }
     
-    func deletaAluno(aluno: Aluno) {
+    func deletaAluno(aluno:Aluno) {
         contexto.delete(aluno)
         atualizaContexto()
     }
@@ -84,4 +81,5 @@ class AlunoDAO: NSObject, NSFetchedResultsControllerDelegate {
             print(error.localizedDescription)
         }
     }
+
 }

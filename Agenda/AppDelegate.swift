@@ -39,7 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        // Toda vez que o aplicativo se torna ativo
         Repositorio().sincronizaAlunos()
     }
 
