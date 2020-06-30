@@ -29,6 +29,8 @@ Aplicativo desenvolvido ao longo de alguns cursos de Swift da Alura.
 5. No arquivo info.plist altere o host da chave UrlPadrao para o seu ip (obs.: O dispositivo deve estar usando a mesma rede do servidor)
 6. Execute o projeto no Xcode
 
+Obs.: Para acessar o portal admin, basta entrar em http://localhost:8080
+
 ## ⚡️ Aprendizados adquiridos
 
 - Manipulação de recursos nativos:
