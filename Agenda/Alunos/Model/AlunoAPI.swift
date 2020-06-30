@@ -25,14 +25,7 @@ class AlunoAPI: NSObject {
             switch response.result {
             case .success:
                 if let resposta = response.result.value as? Dictionary<String, Any> {
-                    guard let listaDeAlunos = resposta["alunos"] as? Array<Dictionary<String, Any>> else { return }
-                    for dicionarioDeAluno in listaDeAlunos {
-                        AlunoDAO().salvaAluno(dicionarioDeAluno: dicionarioDeAluno)
-                    }
-                    
-                    guard let versao = resposta["momentoDaUltimaMoificacao"] as? String else { return }
-                    AlunoUserDefaults().salvaVersao(versao)
-                    
+                    self.serializaAlunos(resposta)
                     completion()
                 }
                 break
@@ -44,11 +37,15 @@ class AlunoAPI: NSObject {
         }
     }
     
-    func recuperaUltimosAlunos(_ versao: String) {
+    func recuperaUltimosAlunos(_ versao: String, completion: @escaping() -> Void) {
         Alamofire.request(url + "api/aluno/diff", method: .get, headers: ["datahora":versao]).responseJSON{(response) in
             switch response.result {
             case .success:
-                print("ULTIMOS ALUNOS")
+                if let resposta = response.result.value as? Dictionary<String, Any> {
+                    print(resposta)
+                    self.serializaAlunos(resposta)
+                    completion()
+                }
                 break
             case .failure:
                 print("FALHA")
@@ -84,7 +81,27 @@ class AlunoAPI: NSObject {
             }
         }
     }
-
+    
+    // MARK: Serialização
+    func serializaAlunos(_ resposta: Dictionary<String, Any>) {
+        guard let listaDeAlunos = resposta["alunos"] as? Array<Dictionary<String, Any>> else { return }
+        for dicionarioDeAluno in listaDeAlunos {
+            guard let status = dicionarioDeAluno["desativado"] as? Bool else { return }
+            if status {
+                guard let idDoAluno = dicionarioDeAluno["id"] as? String else { return }
+                guard let uUIAluno = UUID(uuidString: idDoAluno) else { return }
+                
+                if let aluno = AlunoDAO().recuperaAlunos().filter({ $0.id == uUIAluno }).first {
+                    AlunoDAO().deletaAluno(aluno: aluno)
+                }
+            } else {
+                AlunoDAO().salvaAluno(dicionarioDeAluno: dicionarioDeAluno)
+            }
+        }
+        
+        guard let versao = resposta["momentoDaUltimaModificacao"] as? String else { return }
+        AlunoUserDefaults().salvaVersao(versao)
+    }
 }
 
 

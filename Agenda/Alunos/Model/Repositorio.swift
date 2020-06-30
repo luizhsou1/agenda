@@ -23,6 +23,12 @@ class Repositorio: NSObject {
         }
     }
     
+    func recuperaUltimosAlunos(_ versao: String, completion: @escaping() -> Void) {
+        AlunoAPI().recuperaUltimosAlunos(versao, completion: {
+            completion()
+        })
+    }
+    
     func salvaAluno(aluno:Dictionary<String, String>) {
         AlunoAPI().salvaAlunosNoServidor(parametros: [aluno])
         AlunoDAO().salvaAluno(dicionarioDeAluno: aluno)
