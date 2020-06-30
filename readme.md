@@ -4,23 +4,23 @@
 
 Aplicativo desenvolvido ao longo de alguns cursos de Swift da Alura.
 
-<img src="https://i.pinimg.com/564x/c3/a5/b3/c3a5b332f9716abb1c67da38a12595e8.jpg" alt="TelaPrincipal" style="width:200px;"/>
-<img src="https://i.pinimg.com/564x/c3/a5/b3/c3a5b332f9716abb1c67da38a12595e8.jpg" alt="CadastroAluno" style="width:200px;"/>
-<img src="https://i.pinimg.com/564x/c3/a5/b3/c3a5b332f9716abb1c67da38a12595e8.jpg" alt="MenuCamera" style="width:200px;"/>
-<img src="https://i.pinimg.com/564x/c3/a5/b3/c3a5b332f9716abb1c67da38a12595e8.jpg" alt="BuscaPorNome" style="width:200px;"/>
-<img src="https://i.pinimg.com/564x/c3/a5/b3/c3a5b332f9716abb1c67da38a12595e8.jpg" alt="MenuPrincipal" style="width:200px;"/>
-
-<!-- <img src="./images/tela-principal.png" alt="TelaPrincipal" style="width:200px;"/>
-<img src="./images/cadastro-aluno.png" alt="CadastroAluno" style="width:200px;"/>
-<img src="./images/menu-camera.png" alt="MenuCamera" style="width:200px;"/>
-<img src="./images/busca-por-nome.png" alt="BuscaPorNome" style="width:200px;"/>
-<img src="./images/menu-principal.png" alt="MenuPrincipal" style="width:200px;"/> -->
-
-<!-- ![Tela Principal](./images/tela-principal.png)
-![CadastroAluno](./images/cadastro-aluno.png)
-![Menu Camera](./images/menu-camera.png)
-![Busca Por Nome](./images/busca-por-nome.png)
-![Menu Principal](./images/menu-principal.png) -->
+<div>
+    <div style="display: inline-block;" >
+      <img src="./images/tela-principal.png" width="186" height="402" />
+    </div>
+    <div style="display: inline-block;" >
+      <img src="./images/cadastro-aluno.png" width="186" height="402" />
+    </div>
+    <div style="display: inline-block;" >
+      <img src="./images/menu-camera.png" width="186" height="402" />
+    </div>
+    <div style="display: inline-block;" >
+      <img src="./images/busca-por-nome.png" width="186" height="402" />
+    </div>
+    <div style="display: inline-block;" >
+      <img src="./images/menu-principal.png" width="186" height="402" />
+    </div>
+</div>
 
 ## 👨🏼‍💻 Desenvolvedor
 
