@@ -2,8 +2,8 @@
 //  HomeTableViewController.swift
 //  Agenda
 //
-//  Created by Ândriu Coelho on 24/11/17.
-//  Copyright © 2017 Alura. All rights reserved.
+//  Created by Luiz Henrique de Souza on 27/06/20.
+//  Copyright © Zennit 2020. All rights reserved.
 //
 
 import UIKit
@@ -21,6 +21,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configuraSearch()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.atualizaAlunos), name: NSNotification.Name(rawValue: "atualizaAlunos"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,6 +34,10 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate {
         if segue.identifier == "editar" {
             alunoViewController = segue.destination as? AlunoViewController
         }
+    }
+    
+    @objc func atualizaAlunos() {
+        recuperaAlunos()
     }
     
     func recuperaAlunos() {

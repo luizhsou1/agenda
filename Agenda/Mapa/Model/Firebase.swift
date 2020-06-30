@@ -25,10 +25,16 @@ class Firebase: NSObject {
         do {
             guard let mensagem = try JSONSerialization.jsonObject(with: data, options: []) as? Dictionary<String, Any> else { return }
             guard let listaDeAlunos = mensagem["alunos"] as? Array<Dictionary<String, Any>> else { return }
+            sincronizaAlunos(alunos: listaDeAlunos)
+            NotificationCenter.default.post(name: NSNotification.Name("atualizaAlunos"), object: nil)
         } catch {
             print(error.localizedDescription)
+        }        
+    }
+    
+    func sincronizaAlunos(alunos: Array<[String: Any]>) {
+        for aluno in alunos {
+            AlunoDAO().salvaAluno(dicionarioDeAluno: aluno)
         }
-            print(respostaDoFirebase)
-        
     }
 }

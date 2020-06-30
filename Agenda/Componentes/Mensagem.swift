@@ -2,8 +2,8 @@
 //  Mensagem.swift
 //  Agenda
 //
-//  Created by Alura on 08/12/17.
-//  Copyright © 2017 Alura. All rights reserved.
+//  Created by Alura on 27/06/20.
+//  Copyright © Zennit 2020. All rights reserved.
 //
 
 import UIKit

@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  Agenda
 //
-//  Created by Ândriu Coelho on 24/11/17.
-//  Copyright © 2017 Alura. All rights reserved.
+//  Created by Luiz Henrique de Souza on 27/06/20.
+//  Copyright © Zennit 2020. All rights reserved.
 //
 
 import UIKit

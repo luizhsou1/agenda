@@ -2,8 +2,8 @@
 //  ImagePicker.swift
 //  Agenda
 //
-//  Created by Alura Laranja on 04/12/17.
-//  Copyright © 2017 Alura. All rights reserved.
+//  Created by Luiz Henrique de Souza on 27/06/20.
+//  Copyright © Zennit 2020. All rights reserved.
 //
 
 import UIKit

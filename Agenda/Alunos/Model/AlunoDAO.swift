@@ -35,7 +35,7 @@ class AlunoDAO: NSObject {
         return listaDeAlunos
     }
     
-    func salvaAluno(dicionarioDeAluno:Dictionary<String, Any>) {
+    func salvaAluno(dicionarioDeAluno: Dictionary<String, Any>) {
         
         var aluno:NSManagedObject?
         guard let id = UUID(uuidString: dicionarioDeAluno["id"] as! String) else { return }
