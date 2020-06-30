@@ -15,6 +15,7 @@
 		03AA17661FC84353003CB2B8 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AA17651FC84353003CB2B8 /* HomeTableViewController.swift */; };
 		03AA17681FC843B1003CB2B8 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AA17671FC843B1003CB2B8 /* HomeTableViewCell.swift */; };
 		03AA176D1FC8515A003CB2B8 /* AlunoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AA176C1FC8515A003CB2B8 /* AlunoViewController.swift */; };
+		25768CBE24AB74F60039E92A /* AlunoUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25768CBD24AB74F60039E92A /* AlunoUserDefaults.swift */; };
 		2598A66A24A66A8C00482DF8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2598A66924A66A8C00482DF8 /* GoogleService-Info.plist */; };
 		2598A66E24A66E5500482DF8 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2598A66D24A66E5500482DF8 /* Firebase.swift */; };
 		2598A67024A6727100482DF8 /* Configuracao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2598A66F24A6727100482DF8 /* Configuracao.swift */; };
@@ -48,6 +49,7 @@
 		03AA17651FC84353003CB2B8 /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		03AA17671FC843B1003CB2B8 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		03AA176C1FC8515A003CB2B8 /* AlunoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlunoViewController.swift; sourceTree = "<group>"; };
+		25768CBD24AB74F60039E92A /* AlunoUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlunoUserDefaults.swift; sourceTree = "<group>"; };
 		2598A66824A648A200482DF8 /* Agenda.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Agenda.entitlements; sourceTree = "<group>"; };
 		2598A66924A66A8C00482DF8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		2598A66D24A66E5500482DF8 /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Firebase.swift; path = Agenda/Mapa/Model/Firebase.swift; sourceTree = SOURCE_ROOT; };
@@ -198,6 +200,7 @@
 				65AB2CA720470DA000F07B9B /* AlunoAPI.swift */,
 				65AB2CB320471F0400F07B9B /* AlunoDAO.swift */,
 				65AB2CB120471E9200F07B9B /* Repositorio.swift */,
+				25768CBD24AB74F60039E92A /* AlunoUserDefaults.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -410,6 +413,7 @@
 				65E00DA1204ED7210094F96C /* LigacaoTelefonica.swift in Sources */,
 				65AB2CB220471E9200F07B9B /* Repositorio.swift in Sources */,
 				B9FFD4511FDEE6F700CEE593 /* MapaViewController.swift in Sources */,
+				25768CBE24AB74F60039E92A /* AlunoUserDefaults.swift in Sources */,
 				03AA174E1FC84154003CB2B8 /* AppDelegate.swift in Sources */,
 				B9EA19FB1FDEBEAD00403CE0 /* Localizacao.swift in Sources */,
 				658B1AA82006456B006D944C /* AutenticacaoLocal.swift in Sources */,

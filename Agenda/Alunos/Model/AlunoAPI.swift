@@ -29,6 +29,10 @@ class AlunoAPI: NSObject {
                     for dicionarioDeAluno in listaDeAlunos {
                         AlunoDAO().salvaAluno(dicionarioDeAluno: dicionarioDeAluno)
                     }
+                    
+                    guard let versao = resposta["momentoDaUltimaMoificacao"] as? String else { return }
+                    AlunoUserDefaults().salvaVersao(versao)
+                    
                     completion()
                 }
                 break
