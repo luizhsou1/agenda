@@ -114,7 +114,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate {
                 if autenticado {
                     DispatchQueue.main.async {
                         let alunoSelecionado = self.alunos[indexPath.row]
-                        Repositorio().deletaAluno(aluno: alunoSelecionado)
+                        Repositorio().deletaAluno(alunoSelecionado)
                         self.alunos.remove(at: indexPath.row)
                         self.tableView.deleteRows(at: [indexPath], with: .fade)
                     }

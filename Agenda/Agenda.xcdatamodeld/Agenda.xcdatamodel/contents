@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19F101" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Aluno" representedClassName="Aluno" syncable="YES" codeGenerationType="class">
+        <attribute name="desativado" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="endereco" optional="YES" attributeType="String"/>
         <attribute name="foto" optional="YES" attributeType="Transformable"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -11,6 +12,6 @@
         <attribute name="telefone" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="Aluno" positionX="-54" positionY="-9" width="128" height="163"/>
+        <element name="Aluno" positionX="-54" positionY="-9" width="128" height="178"/>
     </elements>
 </model>

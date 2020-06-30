@@ -11,7 +11,7 @@ import UIKit
 class Repositorio: NSObject {
     
     func recuperaAlunos(completion:@escaping(_ listaDeAlunos:Array<Aluno>) -> Void) {
-        var alunos = AlunoDAO().recuperaAlunos()
+        var alunos = AlunoDAO().recuperaAlunos().filter({ $0.desativado == false })
         if alunos.count == 0 {
             AlunoAPI().recuperaAlunos {
                 alunos = AlunoDAO().recuperaAlunos()
@@ -38,21 +38,36 @@ class Repositorio: NSObject {
         }
     }
     
-    func deletaAluno(aluno:Aluno) {
+    func deletaAluno(_ aluno:Aluno) {
+        aluno.desativado = true
+        AlunoDAO().atualizaContexto()
         guard let id = aluno.id else { return }
-        AlunoAPI().deletaAluno(id: String(describing: id).lowercased())
-        AlunoDAO().deletaAluno(aluno: aluno)
+        AlunoAPI().deletaAluno(id: String(describing: id).lowercased()) {(apagado) in
+            if apagado {
+                AlunoDAO().deletaAluno(aluno: aluno)
+            }
+        }
     }
     
     func sincronizaAlunos() {
+        enviaAlunosNaoSincronizados()
+        sincronizaAlunosDeletados()
+    }
+    
+    func enviaAlunosNaoSincronizados() {
         let alunos = AlunoDAO().recuperaAlunos().filter({ $0.sincronizado == false })
         let listaDeParametros = criaJsonAluno(alunos)
-        print("ALUNOS:")
-        print(listaDeParametros)
         AlunoAPI().salvaAlunosNoServidor(parametros: listaDeParametros) {(salvo) in
             for aluno in listaDeParametros {
-                self.atualizaAlunoSincronizado(aluno)   
+                self.atualizaAlunoSincronizado(aluno)
             }
+        }
+    }
+    
+    func sincronizaAlunosDeletados() {
+        let alunos = AlunoDAO().recuperaAlunos().filter({ $0.desativado == true })
+        for aluno in alunos {
+            deletaAluno(aluno)
         }
     }
     
