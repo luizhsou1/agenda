@@ -56,7 +56,7 @@ class AlunoAPI: NSObject {
     
     // MARK: - PUT
     
-    func salvaAlunosNoServidor(parametros:Array<Dictionary<String, String>>) {
+    func salvaAlunosNoServidor(parametros:Array<Dictionary<String, Any>>, completion: @escaping (_ salvo: Bool) -> Void) {
         guard let urlPadrao = Configuracao().getUrlPadrao() else { return }
         
         guard let url = URL(string: urlPadrao + "api/aluno/lista") else { return }
@@ -65,7 +65,11 @@ class AlunoAPI: NSObject {
         let json = try! JSONSerialization.data(withJSONObject: parametros, options: [])
         requisicao.httpBody = json
         requisicao.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        Alamofire.request(requisicao)
+        Alamofire.request(requisicao).responseData{ (resposta) in
+            if resposta.error == nil {
+                completion(true)
+            }
+        }
     }
     
     // MARK: - DELETE
