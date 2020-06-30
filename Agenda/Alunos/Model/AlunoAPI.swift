@@ -11,11 +11,16 @@ import Alamofire
 
 class AlunoAPI: NSObject {
     
+    // MARK: - Atributos
+    lazy var url:String = {
+        guard let url = Configuracao().getUrlPadrao() else { return "" }
+        
+        return url
+    }()
+    
     // MARK: - GET
     
     func recuperaAlunos(completion:@escaping() -> Void) {
-        guard let url = Configuracao().getUrlPadrao() else { return }
-        
         Alamofire.request(url + "api/aluno", method: .get).responseJSON { (response) in
             switch response.result {
             case .success:
@@ -30,6 +35,19 @@ class AlunoAPI: NSObject {
             case .failure:
                 print(response.error!)
                 completion()
+                break
+            }
+        }
+    }
+    
+    func recuperaUltimosAlunos(_ versao: String) {
+        Alamofire.request(url + "api/aluno/diff", method: .get, headers: ["datahora":versao]).responseJSON{(response) in
+            switch response.result {
+            case .success:
+                print("ULTIMOS ALUNOS")
+                break
+            case .failure:
+                print("FALHA")
                 break
             }
         }
@@ -52,7 +70,6 @@ class AlunoAPI: NSObject {
     // MARK: - DELETE
     
     func deletaAluno(id:String) {
-        guard let url = Configuracao().getUrlPadrao() else { return }
         Alamofire.request(url + "api/aluno/\(id)", method: .delete).responseJSON { (resposta) in
             switch resposta.result {
             case .failure:
