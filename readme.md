@@ -4,24 +4,6 @@
 
 Aplicativo desenvolvido ao longo de alguns cursos de Swift da Alura.
 
-<div>
-    <div style="display: inline-block;" >
-      <img src="./images/tela-principal.png" width="186" height="402" />
-    </div>
-    <div style="display: inline-block;" >
-      <img src="./images/cadastro-aluno.png" width="186" height="402" />
-    </div>
-    <div style="display: inline-block;" >
-      <img src="./images/menu-camera.png" width="186" height="402" />
-    </div>
-    <div style="display: inline-block;" >
-      <img src="./images/busca-por-nome.png" width="186" height="402" />
-    </div>
-    <div style="display: inline-block;" >
-      <img src="./images/menu-principal.png" width="186" height="402" />
-    </div>
-</div>
-
 ## 👨🏼‍💻 Desenvolvedor
 
 - [Luiz Henrique](https://github.com/luizhsou1)
@@ -68,3 +50,11 @@ Aplicativo desenvolvido ao longo de alguns cursos de Swift da Alura.
   - solicitar certificado de uma autoridade certificadora através do Key Chain;
   - gerar certificado de push notification no apple developer;
   - manipular pacote do firebase para receber mensagens em tempo real com o Cloud Messaging;
+
+## 📱 Telas
+
+![](./images/tela-principal.png)
+![](./images/cadastro-aluno.png)
+![](./images/menu-camera.png)
+![](./images/busca-por-nome.png)
+![](./images/menu-principal.png)
